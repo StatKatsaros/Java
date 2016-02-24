@@ -1,16 +1,11 @@
 
-/**
- * Count common words in Shakespeare's works
- * 
- * @author Duke Software Team
- * @version 1.0
- */
+
 import edu.duke.*;
 
 public class CommonWords
 {
     public String[] getCommon(){
-		FileResource resource = new FileResource("data/common.txt");
+		FileResource resource = new FileResource();// add your txt file there (FileResource("data/common.txt"))
 		String[] common = new String[20];
 		int index = 0;
 		for(String s : resource.words()){
