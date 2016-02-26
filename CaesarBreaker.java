@@ -7,6 +7,9 @@
  */
 package stathis.Week1;
 import edu.duke.*;
+import java.io.*;
+import java.util.*;
+
 
 
 
@@ -46,7 +49,14 @@ public class CaesarBreaker {
         }
         // we use the appropriate key to return to decrypte string. the ch 'e' it is landmark. So 4 steps behind and we are at 'a',
         //but we have to count and the negative solution. if the 'e' is at position 2 for example. For key 4 the dkey should be 21.
+        System.out.println(25-dkey);
         return cc.encrypt(encrypted, 25-dkey); // we can use encrypt method,same package
+    }
+    
+    public String decryptWithKey(String encrypted, int key) {
+        CaesarCipher cc = new CaesarCipher();
+
+        return cc.encrypt(encrypted, 26-key); // we can use encrypt method,same package
     }
     
     /**
@@ -132,5 +142,101 @@ public class CaesarBreaker {
         System.out.println("The first key is: " + firstKey + " the second key is: " + secondKey);
         return cc.encryptTwoKeys(encrypted, firstKey, secondKey);
     }
+    
+    
+    public void testExerc(){
+        String s = "Hfs cpwewloj loks cd Hoto kyg Cyy.";
+        StringBuilder sb = new StringBuilder(s);
+        //String l = "Aal uttx hm aal Qtct Fhljha pl Wbdl. Pvxvxlx!";
+        //String sNew = "";
+        String s1 = decryptWithKey(halfOfString(s,0),14);
+        StringBuilder s1b = new StringBuilder(s1);
+        StringBuilder sbNew = new StringBuilder();
+        String s2 = decryptWithKey(halfOfString(s,1),24);
+        StringBuilder s2b = new StringBuilder(s2);
+        for(int i = 0; i<(s.length()/2); i++){
+            sbNew.append(s1.charAt(i));
+            sbNew.append(s2.charAt(i));
+            
+        }
+        
+        
+        //String la = halfOfString(l,0);
+        //String lb = halfOfString(l,0);
+        //System.out.println(sa);
+        //System.out.println(sb);
+        //System.out.println(la);
+        //System.out.println(lb);
+     
+        System.out.println(sbNew.toString());
+    }
+    
+    public void testExerc2(){
+        String s = "Aal uttx hm aal Qtct Fhljha pl Wbdl. Pvxvxlx!";
+        StringBuilder sb = new StringBuilder(s);
+        StringBuilder sE = new StringBuilder();
+        String s1 = halfOfString(s,0);
+        String s2 = halfOfString(s,1);
+        String s1d = decrypt(s1);
+        String s2d = decrypt(s2);
+        StringBuilder sb1 = new StringBuilder(s1d);
+        StringBuilder sb2 = new StringBuilder(s2d);
+        //System.out.println(s1);
+        //System.out.println(s2);
+        for(int i = 0; i<(s.length()/2); i++){
+            sE.append(sb1.charAt(i));
+            sE.append(sb2.charAt(i));
+            
+        }
+        //sE.setLength(s.length()); //sE is now 45 blocks
+        // 45/2 =22 not 22,5
+        int sb1Size = sb1.length()-1;
+        //System.out.println(sb1Size);
+        if(s.length()%2 !=0){
+           
+           sE.append(sb1.charAt(sb1Size));
+        }
+        
+        System.out.println(sb.toString());
+        
+        System.out.println(sE.toString());
+    }
+    
+    public void testExerc3() throws IOException {
+        FileResource fr = new FileResource();
+        String message = fr.asString();
+        message = message.replaceAll("\\s+", " "); //all whitespace beetween the words became one whitespace
+        //System.out.println(message);
+        String message1 = halfOfString(message,0);
+        String message2 = halfOfString(message,1);
+        String message1d = decrypt(message1);
+        String message2d = decrypt(message2);
+        StringBuilder message1b = new StringBuilder(message1d);
+        StringBuilder message2b = new StringBuilder(message2d);
+        StringBuilder mB = new StringBuilder();
+        System.out.println(message.length()); //2732 %2 =0, no need for last character
+        for(int i = 0; i<(message.length()/2); i++){
+            mB.append(message1b.charAt(i));
+            mB.append(message2b.charAt(i));
+            
+        }
+        //String s = "Uybi Gfqgykii Jgziegv Uigeixdiex Smiizzin";
+        //String s1 = decryptWithKey(halfOfString(s,0),9);
+        //String s1 = halfOfString(s,0);
+        //String s2 = halfOfString(s,1);
+        //String s2 = decryptWithKey(halfOfString(s,1),22);
+        //System.out.println(s1);
+        //System.out.println(s2);
+        System.out.println(mB.toString());
+       
+        
+        
+        
+        
+        
+    }
+    
+    
+        
     
 }
